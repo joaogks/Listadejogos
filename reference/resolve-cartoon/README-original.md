@@ -1,0 +1,7 @@
+# DaVinci Resolve batch importer
+
+`CartoonJazzResolveBatch.lua` is a Resolve menu script. It imports media through Resolve's API and builds ten timelines in one dedicated project. It queues ten 1080p30 MP4/H.264 renders with AAC audio and starts the queue. MP4s go into each video's `outputs/<slug>/davinci/` folder. Progress and failures appear in `outputs/resolve-batch-status.txt`.
+
+First run `scripts/build_resolve_fcpxml.ps1` to generate the episode cards and timeline manifests, then run `python scripts/prepare_resolve_api.py --mix` to make the audio mixes, fades, and native API plans. The intermediate FCPXML is consumed by the preparation script and should not be imported into Resolve on this installation. The soundtrack starts at frame zero under the opening list, which is capped at five seconds; after its fade in, the first episode card follows immediately, with no blank interval. Run `Install-CartoonJazzResolveBatch.ps1` once to install the Lua file for this Windows user. Restart DaVinci Resolve only when the menu item is missing, then run **Workspace > Scripts > Cartoon Jazz - Import and Render Batch**. `Utility` is the filesystem folder scanned by Resolve, not a menu level. The script preserves a non-empty open project by saving it and creating a separate batch project; an empty project is renamed and reused.
+
+The menu action starts rendering in Resolve; the queue continues after the script exits. H.264 uses whichever encoder Resolve has enabled in its preferences.

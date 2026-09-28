@@ -1,0 +1,24 @@
+# Arquivos reconstruídos em cada computador
+/tools/
+/gameplays/
+/previews/
+/assets/
+/music/
+/narration/
+/outputs/
+/catalog/sources.json
+/catalog/gameplays.json
+/catalog/*.candidates.json
+/catalog/*.info.json
+/catalog/*.download-status.json
+/catalog/*.log
+/edit-plan.json
+
+# Configuração local, credenciais e caches
+.env
+.env.*
+*.cookies.txt
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
