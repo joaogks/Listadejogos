@@ -34,6 +34,7 @@ Na instalação original, o FCPXML era intermediário de preparação, não o ca
 - Usar filmagem do console e montagem de gameplay na intro.
 - Criar lower thirds do jogo correto em uma pista superior.
 - Separar narração, OST e áudio da gameplay, com tempos/ganhos/fades adequados.
+- Adicionar cartelas do próximo jogo e efeito sonoro entre os blocos, com mini pausa de voz/OST/gameplay. Dividir a voz entre frases e recalcular os tempos posteriores pelo acréscimo acumulado, preservando as palavras.
 - Tratar as taxas de frames das mídias; o projeto anterior assume 30fps em partes do preparador.
 - Adaptar o instalador para um novo nome de menu e o novo script, preservando o menu do projeto anterior.
 - Consultar a documentação de scripting do Resolve instalado antes de adicionar métodos de controle que não aparecem no código.

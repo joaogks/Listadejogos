@@ -134,13 +134,15 @@ Não apagar a biblioteca antiga nem forçar a lista do novo episódio a seguir a
 3. Reutilizar as fontes existentes e buscar cenas específicas quando a fala exigir.
 4. Selecionar e baixar a filmagem do console e OSTs separadas, conforme o guia.
 5. Montar a intro: console primeiro; depois jogos reconhecíveis do episódio, com 2–4 segundos por trecho.
-6. Cobrir cada bloco da voz com gameplay do jogo atual, lower third correto e OST reduzida. O áudio dos MP4s pode conter efeitos/falas; não tratá-lo como uma trilha isolada.
-7. Escrever `edit-plan.json` com tempos em segundos e caminhos locais resolvidos.
+6. Cobrir cada bloco da voz com gameplay do jogo atual, lower third correto e OST reduzida. Entre os jogos, dividir a voz no limite entre frases e inserir uma mini pausa com a cartela do próximo jogo e efeito sonoro curto. Parar voz, OST e áudio da gameplay durante a cartela; só o efeito toca. Default: 1s, aproveitando silêncios existentes quando suficientes.
+7. Escrever `edit-plan.json` com tempos em segundos, segmentos de voz, cartelas/efeitos e tempo adicional das pausas. Recalcular os tempos posteriores pelo acréscimo acumulado; não usar somente um deslocamento global. O áudio dos MP4s pode conter efeitos/falas e não é uma OST isolada.
 8. Preparar a adaptação do importador do Resolve com base em `reference/resolve-cartoon/`, consultando também a documentação de scripting da instalação do amigo.
 9. Criar timeline/projeto dedicado, preservar o trabalho já aberto e posicionar vídeo, voz, música e efeitos.
 10. Quando a tarefa for a edição completa, conferir e renderizar o MP4 final, entregando também projeto editável, manifesto, transcrição e fontes.
 
 O padrão é conservar a voz original. Se não houver uma intro falada, uma pequena abertura visual pode anteceder a voz; registrar seu deslocamento no manifesto. Não acelerar a narração para acomodar a montagem.
+
+Nas transições, preservar todas as palavras e retomar a voz do próximo jogo somente depois da cartela. Um segundo adicional entre dois jogos desloca em um segundo os elementos seguintes; várias pausas acumulam seus acréscimos. Se a cartela aproveitar um silêncio já presente na fonte, contabilizar somente a extensão criada. O detalhe e o exemplo de manifesto estão na seção de transições do guia.
 
 O código histórico de cartoons tem caminhos, slugs e assets específicos daquele projeto. Ele está aqui para estudar e adaptar. **Não executar o instalador antigo como se já fosse o plugin de lista de jogos.** O README da referência explica o que precisa mudar.
 
@@ -174,3 +176,5 @@ Não há necessidade de Git LFS: o projeto distribui código e seleções de ori
 ## 10. Mensagem pronta para enviar à IA do amigo
 
 > Clone ou baixe https://github.com/joaogks/Listadejogos. Leia `TUTORIAL-PARA-IA.md`, `AGENTS.md` e `GUIA-PARA-IAS.md`, depois os scripts. Vou fornecer somente o título do vídeo e o áudio final. Transcreva a voz com tempos, identifique console/jogos e monte o episódio preservando o áudio original. Comece com vídeo do console, depois gameplays reconhecíveis de 2–4s; no corpo, use gameplay do jogo da fala, lower third com seu nome e OST do próprio jogo em volume reduzido. Reaproveite as fontes existentes e baixe do YouTube os assets necessários. Reconstrua catálogos na sua máquina; não use caminhos do computador original. Adapte o método de API/Lua incluído em `reference/resolve-cartoon/` para o plugin desta lista, que ainda precisa ser implementado. Para a edição completa, entregue timeline/projeto editável no Resolve, MP4 final, manifesto, transcrição e fontes, seguindo os defaults do guia para decisões rotineiras.
+
+> Entre cada bloco de jogo e o seguinte, divida a voz entre frases sem cortar palavras, pare música e áudio da gameplay e insira uma mini pausa com o nome do próximo jogo em uma cartela na tela. Toque um efeito sonoro curto na transição; só ele fica audível durante a cartela. Depois retome a voz e a gameplay do novo jogo. Use cerca de 1s, aproveite silêncios existentes quando possível e registre os acréscimos/segmentos no manifesto para recalcular todos os tempos posteriores.

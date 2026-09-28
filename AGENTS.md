@@ -12,6 +12,8 @@ O usuário enviará somente o título do vídeo e o áudio final da narração. 
 
 - Intro: primeiro uma filmagem do console; depois gameplays de jogos reconhecíveis presentes na lista, com 2–4 segundos por trecho.
 - Corpo: gameplay do jogo atual na narração, lower third com o nome correto e trilha sonora dos próprios jogos em volume reduzido.
+- Entre blocos de jogos: interrompa voz, OST e áudio da gameplay, mostre uma cartela com o nome do próximo jogo durante uma mini pausa e toque um efeito sonoro curto. Depois retome voz/gameplay/lower third/OST. Default: 1s de pausa, aproveitando silêncio existente quando suficiente.
+- Divida a voz apenas entre frases, preservando palavras e velocidade. Registre segmentos e tempo adicional das pausas no manifesto e recalcule os tempos posteriores; não basta um deslocamento global.
 - OST, áudio da gameplay e narração são elementos diferentes. O MP4 baixado não contém necessariamente uma OST isolada.
 - Preserve a proporção das imagens. Escolha cenas que ilustrem a fala e evite menus/loading como preenchimento.
 

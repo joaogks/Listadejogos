@@ -18,7 +18,7 @@ O usuário enviará **o título do vídeo e o arquivo de áudio da narração**.
 - **Áudio:** é a fonte principal do conteúdo, da ordem dos jogos, dos limites dos blocos e da duração do vídeo.
 - **Este guia:** define o estilo de montagem e o funcionamento da biblioteca.
 
-A IA precisa ouvir/transcrever o áudio com marcação de tempo, identificar os nomes dos jogos e gerar o plano de edição. Não escrever outra narração, não sintetizar uma voz substituta e não alterar as palavras, a ordem ou a velocidade do áudio recebido. Pode aplicar ajustes de ganho/mixagem que mantenham o conteúdo integral.
+A IA precisa ouvir/transcrever o áudio com marcação de tempo, identificar os nomes dos jogos e gerar o plano de edição. Não escrever outra narração, não sintetizar uma voz substituta e não alterar as palavras, a ordem ou a velocidade do áudio recebido. Pode aplicar ajustes de ganho/mixagem e dividir a voz entre frases para inserir as pausas de transição solicitadas pelo usuário, preservando todo o conteúdo falado.
 
 O vídeo novo **não precisa conter os 18 jogos da referência**. Essa lista é a biblioteca inicial disponível. A seleção e a ordem do novo episódio vêm da narração enviada; reaproveitar arquivos compatíveis e buscar os demais jogos conforme necessário.
 
@@ -38,8 +38,12 @@ As características visuais obrigatórias abaixo vêm da descrição do usuário
 6. Usar trilhas sonoras dos próprios jogos em volume reduzido, mantendo a narração clara.
 7. Encontrar e baixar as gameplays **do próprio YouTube**. O usuário já solicitou expressamente esse fluxo; não substitua a tarefa por uma sugestão genérica de gravar todas as gameplays novamente.
 8. Montar o vídeo automaticamente por um script/plugin do DaVinci Resolve, aproveitando o método do projeto anterior.
+9. **Entre os blocos narrados de um jogo e outro, interromper o áudio e fazer uma mini pausa com uma cartela na tela mostrando o nome do próximo jogo.** Depois retomar a narração e a gameplay desse jogo.
+10. **Colocar um efeito sonoro na transição entre jogos.** Durante a cartela, o efeito toca sozinho, sem voz, OST ou áudio da gameplay.
 
 Essas regras têm prioridade sobre os parâmetros sugeridos ao longo deste documento. O intervalo de 2–4 segundos é uma regra da **montagem da intro**, não uma obrigação para todos os cortes do corpo do vídeo.
+
+As regras 9 e 10 foram acrescentadas expressamente pelo usuário após a análise da referência. Elas são requisitos deste modelo, não uma afirmação de que essa transição foi medida no vídeo original.
 
 ### Estado do trabalho em 28/09/2026
 
@@ -71,8 +75,11 @@ Narração da introdução
 
 Bloco do jogo 1
   → gameplay do jogo 1 + lower third com seu nome + OST do jogo 1
+Transição para o jogo 2
+  → parar voz, OST e áudio da gameplay
+  → mini pausa + cartela com o nome do jogo 2 + efeito sonoro
 Bloco do jogo 2
-  → gameplay do jogo 2 + lower third com seu nome + OST do jogo 2
+  → retomar voz + gameplay do jogo 2 + lower third + OST do jogo 2
 ...
 Encerramento curto
   → gameplay de jogo(s) já apresentados, com identificação coerente
@@ -133,7 +140,16 @@ Cada bloco precisa de `gameSlug`, `timelineStartSeconds` e `timelineEndSeconds`.
 
 Normalmente a narração entra em 0s e a intro visual cabe na introdução já presente no áudio. Se o arquivo começar diretamente no primeiro jogo e não houver tempo para console + vários trechos de 2–4s, preparar uma abertura visual curta antes da voz e registrar esse deslocamento. Isso posiciona o áudio mais tarde na timeline, sem cortar, acelerar ou modificar sua fala. Não cobrir o primeiro bloco inteiro com imagens aleatórias da intro.
 
-Quando houver deslocamento de voz, guardar `narration.timelineStartSeconds` e somar esse valor aos timestamps da transcrição para obter os tempos da timeline. A duração final será o deslocamento mais a duração da voz, além de eventual cauda curta de encerramento.
+Quando houver deslocamento inicial de voz, guardar `narration.timelineStartSeconds`. As mini pausas entre jogos também podem acrescentar tempo: manter a transcrição nos tempos do áudio original e um mapa dos segmentos de voz na timeline. Não aplicar apenas um deslocamento global depois que houver pausas inseridas.
+
+Após cada pausa, os elementos seguintes precisam ser deslocados pelo tempo **adicional** acumulado. Se uma cartela reutilizar um silêncio já existente no áudio, contar somente a extensão desse silêncio. Guardar `sourceBoundarySeconds`, `durationSeconds` e `insertedPauseSeconds` em cada transição. Para eventos de fala após a transição:
+
+```text
+timelineTime = sourceAudioTime + narration.timelineStartSeconds
+               + soma(insertedPauseSeconds das transições anteriores)
+```
+
+Durante as cartelas não há fala. Representar a voz por segmentos com `sourceInSeconds`, `durationSeconds` e `timelineStartSeconds`, separados por esses intervalos. A duração final considera deslocamento inicial, duração original, extensões das pausas e eventual cauda curta de encerramento.
 
 Se a fala exigir uma cena ausente na biblioteca — um chefe, uma mecânica ou uma fase específica — buscar e baixar esse material adicional. Não preencher a fala com gameplay de outro jogo nem repetir uma sequência inteira só para ocupar tempo.
 
@@ -180,13 +196,44 @@ Regras de mixagem:
 2. OST em faixa separada, com volume reduzido durante a voz.
 3. Áudio da gameplay em outra faixa, inicialmente silenciado; habilitar efeitos apenas em momentos úteis e com nível adequado.
 4. A OST pode continuar por vários cortes de gameplay do mesmo jogo. Não reiniciá-la a cada corte de imagem.
-5. Ao entrar no próximo jogo, trocar para sua música com fade/crossfade breve, evitando saltos de volume.
-6. Não deixar duas músicas tocando sobrepostas além da transição planejada.
+5. Ao encerrar um jogo, finalizar sua música antes da cartela. Durante a mini pausa, somente o efeito de transição fica audível. Iniciar a OST seguinte junto da nova gameplay, com fade breve.
+6. Não fazer crossfade de OSTs atravessando a cartela nem deixar música ou efeitos da gameplay vazando durante essa pausa.
 7. Ouvir a mixagem; nenhuma redução fixa em dB garante o resultado para todas as gravações.
 
 Como ponto de partida, aplicar ganho de **−24 dB à OST** e fades de **0,5s**, depois ajustar à voz e ao nível da gravação. São sugestões, não níveis medidos na referência. Ducking pode ser usado se a automação já o oferecer. Não introduzir jazz do projeto de cartoons neste modelo.
 
 Na intro, escolher uma música de um dos jogos apresentados e manter continuidade durante a montagem. No corpo, acompanhar o jogo atual. A trilha não precisa mudar a cada trecho de 2–4 segundos da abertura.
+
+### Transição entre jogos: cartela, pausa e efeito sonoro
+
+Esta transição é obrigatória na passagem de **um bloco narrado de jogo para o seguinte**. Ela é diferente do lower third: a cartela apresenta o próximo jogo durante a pausa; o lower third identifica a gameplay quando a fala recomeça.
+
+Sequência exata:
+
+1. Terminar a frase do jogo anterior, sem cortar palavras ou respirações necessárias à compreensão.
+2. Dividir a narração nesse limite e parar a voz. Encerrar também OST e áudio da gameplay anterior; usar fades curtos para evitar estalos, sem apagar sílabas.
+3. Mostrar uma cartela ocupando a tela com o **nome do próximo jogo**, centralizado e legível.
+4. Tocar um efeito sonoro curto na entrada da cartela, por exemplo um whoosh discreto ou um impacto suave. Usar um padrão consistente e evitar efeitos estridentes.
+5. Manter uma mini pausa sem fala, com somente esse efeito sonoro. Não é necessário preencher toda a pausa com som.
+6. Encerrar a cartela e retomar a voz na apresentação do próximo jogo, junto de sua gameplay, lower third e OST em volume reduzido.
+
+Defaults de implementação quando o usuário não definir outros valores:
+
+| Elemento | Padrão sugerido |
+|---|---|
+| Cartela/mini pausa | 1 segundo; até 1,5s se o nome longo precisar de mais leitura |
+| Visual | Fundo escuro opaco, nome do próximo jogo em texto claro e grande; quebrar em duas linhas se necessário |
+| Efeito sonoro | 0,2–0,5s, iniciado na entrada da cartela e encerrado antes da voz seguinte |
+| Ganho inicial do efeito | −12 dB, ajustado à gravação para evitar um salto de volume |
+| Microfades de voz | Apenas o suficiente para evitar estalos em limites sem fala; não truncar fonemas |
+
+Os valores são defaults; a exigência do usuário é pausa curta + título do próximo jogo + efeito sonoro. Se já houver silêncio suficiente entre as frases no áudio original, aproveitar esse intervalo. Se faltar tempo, ampliar a pausa deslocando os segmentos seguintes. Não silenciar uma palavra para criar a pausa nem adicionar um segundo extra desnecessário a um silêncio que já comporta a cartela.
+
+Exemplo sem silêncio prévio: o jogo A termina em 47s do áudio; inserir uma cartela entre 47s e 48s da timeline. A voz do jogo B, que começava em 47s da fonte, passa a começar em 48s. As mudanças seguintes acumulam os deslocamentos. Para 18 jogos com 17 pausas adicionais de 1s, o vídeo ganha 17s; se algumas usarem silêncios existentes, o acréscimo é menor.
+
+Essa pausa aplica-se às mudanças dos blocos principais, não a cada corte de câmera dentro do mesmo jogo. Na montagem rápida da intro, manter os trechos de 2–4s e a voz contínua; efeitos de passagem podem ser discretos, sem inserir uma cartela entre cada teaser.
+
+Guardar o efeito em `assets/sfx/` e a cartela em `assets/titles/` quando preparados, com caminho, duração e origem no manifesto. Essas mídias ainda precisam ser selecionadas/geradas; os scripts de gameplay não as criam automaticamente.
 
 ## 4. Arquivos existentes e suas responsabilidades
 
@@ -408,12 +455,15 @@ Antes de adicionar chamadas novas à API, ler a documentação de scripting inst
 
 | Faixa | Conteúdo |
 |---|---|
-| V1 | Console na intro; depois gameplays escolhidas |
+| V1 | Console na intro; gameplays e cartelas de transição nos intervalos planejados |
 | V2 | Lower thirds com transparência |
 | V3 | Outros elementos apenas se o briefing exigir |
 | A1 | Narração |
 | A2 | OST com volume reduzido e transições |
 | A3 | Áudio da gameplay, separado e inicialmente silenciado |
+| A4 | Efeitos sonoros das transições, separados da voz e da música |
+
+Durante a cartela, não posicionar lower third nem mídia audível em A1–A3. Só o efeito planejado em A4 toca; a imagem da cartela deve preencher o intervalo, sem gap preto involuntário. Ao encerrar a cartela, retomar voz/gameplay/OST com os tempos recalculados.
 
 Se for necessário renderizar uma mixagem previamente, manter narração e música em stems separados sempre que possível, para permitir ajustes no Resolve. Se importar vídeo sem som, posicionar apenas o componente de vídeo. Não deixar o áudio vinculado da gameplay somar-se silenciosamente à OST e à voz.
 
@@ -427,6 +477,7 @@ Criar um manifesto separado, por exemplo `edit-plan.json`, **quando a montagem f
 - Título enviado e identificação do episódio.
 - Arquivo da narração final.
 - Posição inicial da narração na timeline, caso haja uma abertura anterior à voz.
+- Segmentos da narração após as divisões entre jogos, preservando os limites no áudio original.
 - Transcrição temporal e lista de jogos extraídas do áudio.
 - Asset do console e seu corte local.
 - Seleção e cortes de gameplay da intro, com 2–4s por item.
@@ -434,16 +485,24 @@ Criar um manifesto separado, por exemplo `edit-plan.json`, **quando a montagem f
 - Cortes locais escolhidos para preencher cada bloco.
 - Texto, início e duração de cada lower third.
 - Música de cada bloco, corte, ganho e fades.
+- Transições: jogo anterior/próximo, limite no áudio original, início na timeline, duração da cartela, tempo adicional inserido, texto e efeito sonoro.
 - Observações de curadoria e origem.
 
 Exemplo estrutural de manifesto, **não implementado pelo código atual e não pronto para render**:
 
 ```json
 {
-  "version": 1,
+  "version": 2,
   "title": "Título enviado pelo usuário",
   "timeline": { "width": 1920, "height": 1080, "fps": 30, "audioSampleRate": 48000 },
-  "narration": { "src": "narration/exemplo.wav", "timelineStartSeconds": 0 },
+  "narration": {
+    "src": "narration/exemplo.wav",
+    "timelineStartSeconds": 0,
+    "segments": [
+      { "sourceInSeconds": 0, "durationSeconds": 47, "timelineStartSeconds": 0 },
+      { "sourceInSeconds": 47, "durationSeconds": 30, "timelineStartSeconds": 48 }
+    ]
+  },
   "intro": {
     "console": { "src": "assets/console/ps1.mp4", "sourceInSeconds": 0, "timelineStartSeconds": 0, "durationSeconds": 5 },
     "gameplayCuts": [
@@ -453,6 +512,18 @@ Exemplo estrutural de manifesto, **não implementado pelo código atual e não p
       { "gameSlug": "resident-evil-3-nemesis", "sourceInSeconds": 100, "timelineStartSeconds": 14, "durationSeconds": 3 }
     ]
   },
+  "transitions": [
+    {
+      "fromGameSlug": "warpath-jurassic-park",
+      "toGameSlug": "ridge-racer-type-4",
+      "sourceBoundarySeconds": 47,
+      "timelineStartSeconds": 47,
+      "durationSeconds": 1,
+      "insertedPauseSeconds": 1,
+      "title": { "text": "R4: Ridge Racer Type 4", "src": "assets/titles/ridge-racer-type-4.png" },
+      "soundEffect": { "src": "assets/sfx/game-transition.wav", "sourceInSeconds": 0, "durationSeconds": 0.35, "gainDb": -12 }
+    }
+  ],
   "blocks": [
     {
       "gameSlug": "warpath-jurassic-park",
@@ -464,12 +535,23 @@ Exemplo estrutural de manifesto, **não implementado pelo código atual e não p
       ],
       "lowerThird": { "text": "Warpath: Jurassic Park", "timelineStartSeconds": 17, "durationSeconds": 4 },
       "music": { "src": "music/warpath-jurassic-park/ost.wav", "sourceInSeconds": 0, "timelineStartSeconds": 17, "durationSeconds": 30, "gainDb": -24, "fadeInSeconds": 0.5, "fadeOutSeconds": 0.5 }
+    },
+    {
+      "gameSlug": "ridge-racer-type-4",
+      "timelineStartSeconds": 48,
+      "timelineEndSeconds": 78,
+      "gameplayCuts": [
+        { "sourceInSeconds": 60, "timelineStartSeconds": 48, "durationSeconds": 15 },
+        { "sourceInSeconds": 95, "timelineStartSeconds": 63, "durationSeconds": 15 }
+      ],
+      "lowerThird": { "text": "R4: Ridge Racer Type 4", "timelineStartSeconds": 48, "durationSeconds": 4 },
+      "music": { "src": "music/ridge-racer-type-4/ost.wav", "sourceInSeconds": 0, "timelineStartSeconds": 48, "durationSeconds": 30, "gainDb": -24, "fadeInSeconds": 0.5, "fadeOutSeconds": 0.5 }
     }
   ]
 }
 ```
 
-Os caminhos de voz, console e música acima são ilustrativos e ainda não existem. Os cortes são exemplos de dados, não intervalos integralmente aprovados. Antes da montagem, resolver cada `gameSlug` para o `src` real do catálogo, conferir todos os in/out e preencher os demais blocos com a duração da voz final. Trinta segundos no exemplo não é uma regra para a duração de um jogo.
+Os caminhos de voz, console, música, cartela e efeito acima são ilustrativos e ainda não existem. Os cortes são exemplos de dados, não intervalos integralmente aprovados. Antes da montagem, resolver cada `gameSlug` para o `src` real do catálogo, conferir todos os in/out e preencher os demais blocos com a duração da voz final. Trinta segundos no exemplo não é uma regra para a duração de um jogo. O exemplo supõe voz de 77s e pausa adicional de 1s, resultando em timeline de 78s; 47s é somente um limite ilustrativo entre frases.
 
 ### Sequência de trabalho para a próxima IA
 
@@ -477,9 +559,9 @@ Os caminhos de voz, console e música acima são ilustrativos e ainda não exist
 2. Receber o título e o áudio final; medir e transcrever a voz sem substituí-la.
 3. Extrair console, lista/ordem dos jogos e limites dos blocos nos tempos da voz.
 4. Ler o catálogo existente e reaproveitar gameplays compatíveis.
-5. Buscar/baixar apenas cenas faltantes, além do console e das OSTs.
-6. Rever os cortes completos e escrever o manifesto de edição em segundos.
-7. Preparar lower thirds e, se necessário, cortes/mixes com FFmpeg.
+5. Buscar/baixar apenas cenas faltantes, além do console, das OSTs e do efeito sonoro de transição.
+6. Rever os cortes completos, marcar pausas entre jogos e escrever o manifesto em segundos, com os deslocamentos acumulados.
+7. Preparar lower thirds, cartelas com o nome do próximo jogo e, se necessário, segmentos de voz/cortes/mixes com FFmpeg.
 8. Adaptar o importador Lua/API para criar uma timeline dedicada e posicionar os assets.
 9. Preservar o projeto aberto do usuário: salvar e criar um projeto separado quando ele já contiver trabalho.
 10. Gerar a timeline editável com caminhos válidos e durações calculadas.
@@ -507,7 +589,9 @@ Para considerar a montagem fiel ao pedido, todos estes pontos precisam estar ate
 - A montagem seguinte antecipa jogos presentes no vídeo, com 2–4s por gameplay.
 - A fala sobre um jogo é acompanhada por material desse jogo/versão.
 - O nome do lower third corresponde à gameplay e está legível.
-- A duração de cada bloco acompanha o áudio real; não existem gaps involuntários de imagem ou voz.
+- A duração de cada bloco acompanha o áudio real e as pausas inseridas; não existem gaps involuntários de imagem ou voz.
+- Entre os blocos de jogos há mini pausa com cartela do próximo jogo e efeito sonoro; voz, OST e gameplay ficam sem som nesse intervalo.
+- Nenhuma palavra foi cortada para abrir a pausa; os tempos posteriores foram recalculados, incluindo lower thirds, músicas e imagens.
 - Menus, telas pretas e loading não aparecem por mero preenchimento.
 - OSTs dos jogos ficam em volume reduzido, com voz inteligível.
 - Música, efeitos e narração não foram duplicados por importação de áudio vinculado.
@@ -529,6 +613,8 @@ Copiar o texto abaixo e preencher título e arquivo de áudio. Se a IA estiver f
 > Edite e entregue o vídeo completo com base neste título, no áudio enviado e no guia. Clone ou baixe https://github.com/joaogks/Listadejogos e trabalhe na pasta do repositório. Leia `TUTORIAL-PARA-IA.md`, `GUIA-PARA-IAS.md`, `README.md` e os dois scripts em `scripts/`. Reconstrua `catalog/gameplays.json` localmente quando necessário. Transcreva o áudio com timestamps e extraia o console, os jogos, sua ordem e os limites de cada bloco. Use a voz original integral, sem reescrever a narração, gerar outra voz ou mudar sua velocidade. Não exija roteiro escrito, lista de jogos ou timecodes do usuário: derive esses elementos da fala.
 >
 > Comece a imagem com um vídeo do console abordado; em seguida, mostre gameplays de jogos conhecidos presentes no episódio, com 2–4 segundos por trecho. Faça essa intro caber na introdução da voz; se o áudio começar direto no primeiro jogo, coloque uma abertura visual curta antes dele e registre o deslocamento. No corpo, mostre gameplay do jogo atual na narração, coloque um lower third com seu nome e use música do próprio jogo em volume reduzido. Mantenha a voz clara e separe OST, áudio da gameplay e narração.
+>
+> Entre os blocos de um jogo e outro, corte a voz somente no limite entre frases, encerre música/áudio da gameplay e faça uma mini pausa de cerca de 1s com uma cartela mostrando o nome do próximo jogo. Toque um efeito sonoro curto nessa entrada; durante a cartela, só ele fica audível. Depois retome a narração original junto da gameplay, lower third e OST do próximo jogo. Aproveite silêncios existentes quando suficientes e amplie-os quando necessário, sem apagar palavras nem acelerar a voz. Registre as divisões de áudio e recalcule todos os tempos posteriores pelo acréscimo acumulado.
 >
 > Reaproveite a biblioteca já baixada do YouTube e busque/baixe as cenas faltantes, o vídeo do console e as OSTs. O novo episódio deve seguir os jogos do áudio, não obrigatoriamente os 18 da referência. Confirme jogo, versão e plataforma. Não use menus, loading ou telas pretas como preenchimento; revise os cortes completos, preserve proporção e HUD e registre as fontes.
 >

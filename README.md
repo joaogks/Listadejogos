@@ -27,6 +27,8 @@ Para continuar este projeto com outra IA, leia [GUIA-PARA-IAS.md](GUIA-PARA-IAS.
 
 Fluxo de entrada: o usuário fornece **o título e o áudio final**. A IA transcreve a narração, identifica console/jogos e seus tempos, seleciona/baixa as mídias e monta o vídeo. Há um prompt pronto para copiar no final do guia.
 
+**Transições entre jogos:** ao terminar um bloco, interromper voz, música e áudio da gameplay. Mostrar uma cartela com o nome do próximo jogo numa mini pausa, acompanhada por um efeito sonoro curto, e depois retomar a narração e a gameplay. Padrão sugerido: 1s de pausa; aproveitar silêncios existentes ou ampliá-los sem cortar palavras. O plano de edição deve registrar os segmentos da voz e recalcular os tempos seguintes.
+
 Busca videos publicos no YouTube, escolhe candidatos pelo nome do jogo e por palavras como PS1, PSX, longplay e no commentary, e baixa trechos com yt-dlp + FFmpeg. Os arquivos mantem o audio da gameplay e a proporcao da fonte. Nao sao trilhas isoladas: o audio pode incluir musica, efeitos e falas do jogo.
 
 ## Biblioteca atual
