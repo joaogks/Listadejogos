@@ -40,10 +40,11 @@ As características visuais obrigatórias abaixo vêm da descrição do usuário
 8. Montar o vídeo automaticamente por um script/plugin do DaVinci Resolve, aproveitando o método do projeto anterior.
 9. **Entre os blocos narrados de um jogo e outro, interromper o áudio e fazer uma mini pausa com uma cartela na tela mostrando o nome do próximo jogo.** Depois retomar a narração e a gameplay desse jogo.
 10. **Colocar um efeito sonoro na transição entre jogos.** Durante a cartela, o efeito toca sozinho, sem voz, OST ou áudio da gameplay.
+11. **No corpo, usar uma seleção de gameplay com cortes de cerca de 5 segundos, mostrando partes diferentes do mesmo jogo durante seu bloco.** Variar situações, fases, cenários, personagens ou ações conforme o gênero e a fala. Não deixar apenas uma sequência contínua cobrindo o comentário inteiro.
 
 Essas regras têm prioridade sobre os parâmetros sugeridos ao longo deste documento. O intervalo de 2–4 segundos é uma regra da **montagem da intro**, não uma obrigação para todos os cortes do corpo do vídeo.
 
-As regras 9 e 10 foram acrescentadas expressamente pelo usuário após a análise da referência. Elas são requisitos deste modelo, não uma afirmação de que essa transição foi medida no vídeo original.
+As regras 9, 10 e 11 foram acrescentadas expressamente pelo usuário após a análise da referência. Elas são requisitos deste modelo, não uma afirmação de que esses tempos/transições foram medidos no vídeo original. A intro mantém cortes de 2–4s; o corpo passa a usar aproximadamente 5s por corte.
 
 ### Estado do trabalho em 28/09/2026
 
@@ -74,12 +75,12 @@ Narração da introdução
   → entrada no primeiro jogo
 
 Bloco do jogo 1
-  → gameplay do jogo 1 + lower third com seu nome + OST do jogo 1
+  → seleção de partes diferentes do jogo 1, ~5s por corte + lower third + OST
 Transição para o jogo 2
   → parar voz, OST e áudio da gameplay
   → mini pausa + cartela com o nome do jogo 2 + efeito sonoro
 Bloco do jogo 2
-  → retomar voz + gameplay do jogo 2 + lower third + OST do jogo 2
+  → retomar voz + seleção de partes do jogo 2, ~5s por corte + lower third + OST
 ...
 Encerramento curto
   → gameplay de jogo(s) já apresentados, com identificação coerente
@@ -119,7 +120,7 @@ Modelo sugerido para escrever cada bloco:
 
 Não inventar fatos de lançamento, vendas, tecnologia, notas ou bastidores. Verificar fatos específicos antes de incluí-los no roteiro. Não fabricar uma transcrição ou atribuir frases ao narrador da referência.
 
-No corpo, o ritmo dos cortes acompanha as ideias da fala. Pode manter uma ação contínua por mais tempo que a intro. Não usar um cronômetro de 3 segundos para todos os planos: interromper uma ação importante pode prejudicar a demonstração.
+No corpo, o ritmo dos cortes acompanha as ideias da fala com duração-alvo de **5 segundos por plano**. Usar uma seleção de momentos distintos do jogo, em vez de manter uma única gameplay contínua durante todo o bloco. Ajustes pequenos, normalmente entre 4 e 6s, podem preservar uma ação ou acompanhar uma frase; o resultado deve continuar próximo de 5s por corte. A duração do áudio não muda para encaixar essa cadência.
 
 ### Sincronização da voz
 
@@ -160,14 +161,46 @@ Se a fala exigir uma cena ausente na biblioteca — um chefe, uma mecânica ou u
 - Confirmar jogo, versão e plataforma. Para esta lista, procurar a versão de PS1; um remake de PC/PS4 não representa automaticamente o jogo original.
 - Preferir longplays ou walkthroughs sem comentários de outro narrador.
 - Escolher momentos com ação legível e identidade visual clara do jogo.
+- Durante cada bloco, alternar trechos de aproximadamente 5s de situações diferentes do mesmo jogo; trechos consecutivos de uma única situação não garantem variedade.
 - Combinar cena e fala: corrida para condução, luta para combate, exploração para cenários, cena narrativa quando a fala trata de história.
 - Evitar menus, pausa, loading, tela preta, créditos e falas longas de NPC quando esses elementos não forem o assunto.
-- Inspecionar o intervalo inteiro do corte escolhido. Uma imagem boa em 60s não aprova automaticamente os 10 segundos seguintes.
+- Inspecionar o intervalo inteiro do corte escolhido. Uma imagem boa em 60s não aprova automaticamente os 5 segundos seguintes.
 - Preservar a proporção original. Não esticar 4:3 para 16:9. Um enquadramento com barras é preferível à distorção; qualquer crop deve preservar HUD e informação importante.
 - Fontes com molduras, marcas de canal ou grandes bordas devem ser registradas e, se possível, substituídas por alternativas mais limpas.
 - Não ampliar uma fonte de baixa resolução e anunciá-la como captura nativa em alta definição.
 
 Detecção automática de preto, pouca movimentação ou mudança de cena pode ajudar a encontrar candidatos ruins, mas não é decisão editorial suficiente. Alien Resurrection e Alone in the Dark, por exemplo, têm cenários escuros legítimos.
+
+### Seleção de partes diferentes: cortes de aproximadamente 5s
+
+A meta é mostrar um panorama visual do jogo durante a fala. Escolher cenas distribuídas por momentos diferentes de um longplay, ou por fontes compatíveis, em vez de simplesmente picotar cinco segundos após cinco segundos da mesma captura contínua.
+
+Exemplos de variedade, sempre subordinados ao conteúdo da narração:
+
+| Tipo de jogo | Situações que podem alternar |
+|---|---|
+| Luta | Personagens, adversários, arenas, golpes e confrontos diferentes |
+| Corrida | Pistas, carros, curvas, ultrapassagens e pontos de vista diferentes |
+| Plataforma | Fases, obstáculos, habilidades, inimigos e chefes |
+| RPG | Exploração, cenários, combate, habilidades e personagens |
+| Terror/ação | Ambientes, exploração, inimigos, combate e situações de tensão |
+
+Procedimento para cada bloco:
+
+1. Calcular a duração da fala correspondente e planejar aproximadamente um corte a cada 5s. Um bloco de 60s usa cerca de 12 cortes; um de 45s, cerca de 9.
+2. Selecionar momentos de mais de uma situação/fase/ambiente. Para blocos mais longos, buscar pelo menos três situações distintas quando houver material adequado; isso é um critério de curadoria, não uma ordem para inventar cenas.
+3. Priorizar as situações citadas pela voz. Alternar as demais para variar a imagem, mantendo sempre o jogo e a versão corretos.
+4. Rever os cortes completos e descartar intervalos com menus/loading ou interrupções inadequadas.
+5. Posicionar os cortes sem gaps até o fim do bloco. Se a duração não for múltipla de 5, ajustar o último corte ou distribuir o ajuste entre os últimos planos para evitar um flash muito curto. Um bloco inteiro menor que 5s usa somente sua duração real.
+6. Manter voz e OST contínuas durante os cortes do **mesmo jogo**. Não reaplicar a pausa, cartela ou efeito sonoro de mudança de jogo a cada corte de 5s; não reiniciar o lower third em todos os planos.
+
+O banco inicial contém apenas um intervalo principal de aproximadamente dois minutos por jogo. Ele pode não ter a variedade necessária. Nesse caso, selecionar outros intervalos do mesmo longplay ou fontes compatíveis e baixar esse material adicional. Os clipes de 120s são matéria-prima; o corte usado na timeline normalmente terá cerca de 5s.
+
+O downloader atual aceita **uma seleção ativa por slug** em `sources.json`, e o catálogo principal guarda o último status desse jogo. Para obter vários intervalos com ele, alterar a seleção/início e baixar sequencialmente, preservando os MP4s anteriores. O nome do arquivo inclui ID e início; usar inícios/IDs distintos evita sobrescrever os intervalos anteriores. Registrar cada arquivo e sua origem no manifesto enquanto a seleção estiver ativa.
+
+Não presumir que `gameplays.json` já enumera todos os arquivos extras: ele é reconstruído a partir do último status por jogo. Na montagem futura, cada item de `gameplayCuts` pode indicar `src` explicitamente para um arquivo extra; quando omitido, usar o `src` principal do catálogo para o `gameSlug` do bloco. Guardar as origens dos extras em um inventário de assets separado, com jogo, URL, início solicitado e caminho local.
+
+Essa seleção automática/curadoria de múltiplos trechos ainda precisa ser executada pela IA ou implementada no gerador da timeline. Os dois scripts atuais não reconhecem sozinhos fases, bosses ou diversidade de cenas.
 
 ### Lower third
 
@@ -482,7 +515,8 @@ Criar um manifesto separado, por exemplo `edit-plan.json`, **quando a montagem f
 - Asset do console e seu corte local.
 - Seleção e cortes de gameplay da intro, com 2–4s por item.
 - Ordem dos blocos, slug do jogo e limites de tempo alinhados à voz.
-- Cortes locais escolhidos para preencher cada bloco.
+- Seleção de cortes de aproximadamente 5s que mostrem partes diferentes do jogo e preencham cada bloco, incluindo `src` quando houver arquivos extras.
+- Inventário/origem dos trechos extras, além do arquivo principal de cada jogo.
 - Texto, início e duração de cada lower third.
 - Música de cada bloco, corte, ganho e fades.
 - Transições: jogo anterior/próximo, limite no áudio original, início na timeline, duração da cartela, tempo adicional inserido, texto e efeito sonoro.
@@ -492,8 +526,9 @@ Exemplo estrutural de manifesto, **não implementado pelo código atual e não p
 
 ```json
 {
-  "version": 2,
+  "version": 3,
   "title": "Título enviado pelo usuário",
+  "editing": { "introCutMinSeconds": 2, "introCutMaxSeconds": 4, "bodyTargetCutSeconds": 5, "varyScenesWithinGame": true },
   "timeline": { "width": 1920, "height": 1080, "fps": 30, "audioSampleRate": 48000 },
   "narration": {
     "src": "narration/exemplo.wav",
@@ -530,8 +565,12 @@ Exemplo estrutural de manifesto, **não implementado pelo código atual e não p
       "timelineStartSeconds": 17,
       "timelineEndSeconds": 47,
       "gameplayCuts": [
-        { "sourceInSeconds": 20, "timelineStartSeconds": 17, "durationSeconds": 15 },
-        { "sourceInSeconds": 60, "timelineStartSeconds": 32, "durationSeconds": 15 }
+        { "sourceInSeconds": 20, "timelineStartSeconds": 17, "durationSeconds": 5 },
+        { "src": "gameplays/warpath-jurassic-park/trecho-extra-01.mp4", "sourceInSeconds": 10, "timelineStartSeconds": 22, "durationSeconds": 5 },
+        { "sourceInSeconds": 60, "timelineStartSeconds": 27, "durationSeconds": 5 },
+        { "src": "gameplays/warpath-jurassic-park/trecho-extra-02.mp4", "sourceInSeconds": 20, "timelineStartSeconds": 32, "durationSeconds": 5 },
+        { "src": "gameplays/warpath-jurassic-park/trecho-extra-01.mp4", "sourceInSeconds": 35, "timelineStartSeconds": 37, "durationSeconds": 5 },
+        { "src": "gameplays/warpath-jurassic-park/trecho-extra-02.mp4", "sourceInSeconds": 55, "timelineStartSeconds": 42, "durationSeconds": 5 }
       ],
       "lowerThird": { "text": "Warpath: Jurassic Park", "timelineStartSeconds": 17, "durationSeconds": 4 },
       "music": { "src": "music/warpath-jurassic-park/ost.wav", "sourceInSeconds": 0, "timelineStartSeconds": 17, "durationSeconds": 30, "gainDb": -24, "fadeInSeconds": 0.5, "fadeOutSeconds": 0.5 }
@@ -541,8 +580,12 @@ Exemplo estrutural de manifesto, **não implementado pelo código atual e não p
       "timelineStartSeconds": 48,
       "timelineEndSeconds": 78,
       "gameplayCuts": [
-        { "sourceInSeconds": 60, "timelineStartSeconds": 48, "durationSeconds": 15 },
-        { "sourceInSeconds": 95, "timelineStartSeconds": 63, "durationSeconds": 15 }
+        { "sourceInSeconds": 60, "timelineStartSeconds": 48, "durationSeconds": 5 },
+        { "src": "gameplays/ridge-racer-type-4/trecho-extra-01.mp4", "sourceInSeconds": 10, "timelineStartSeconds": 53, "durationSeconds": 5 },
+        { "sourceInSeconds": 95, "timelineStartSeconds": 58, "durationSeconds": 5 },
+        { "src": "gameplays/ridge-racer-type-4/trecho-extra-02.mp4", "sourceInSeconds": 20, "timelineStartSeconds": 63, "durationSeconds": 5 },
+        { "src": "gameplays/ridge-racer-type-4/trecho-extra-01.mp4", "sourceInSeconds": 35, "timelineStartSeconds": 68, "durationSeconds": 5 },
+        { "src": "gameplays/ridge-racer-type-4/trecho-extra-02.mp4", "sourceInSeconds": 55, "timelineStartSeconds": 73, "durationSeconds": 5 }
       ],
       "lowerThird": { "text": "R4: Ridge Racer Type 4", "timelineStartSeconds": 48, "durationSeconds": 4 },
       "music": { "src": "music/ridge-racer-type-4/ost.wav", "sourceInSeconds": 0, "timelineStartSeconds": 48, "durationSeconds": 30, "gainDb": -24, "fadeInSeconds": 0.5, "fadeOutSeconds": 0.5 }
@@ -551,7 +594,7 @@ Exemplo estrutural de manifesto, **não implementado pelo código atual e não p
 }
 ```
 
-Os caminhos de voz, console, música, cartela e efeito acima são ilustrativos e ainda não existem. Os cortes são exemplos de dados, não intervalos integralmente aprovados. Antes da montagem, resolver cada `gameSlug` para o `src` real do catálogo, conferir todos os in/out e preencher os demais blocos com a duração da voz final. Trinta segundos no exemplo não é uma regra para a duração de um jogo. O exemplo supõe voz de 77s e pausa adicional de 1s, resultando em timeline de 78s; 47s é somente um limite ilustrativo entre frases.
+Os caminhos de voz, console, música, cartela, efeito e trechos extras acima são ilustrativos e ainda não existem. Os cortes são exemplos de dados, não intervalos integralmente aprovados. Antes da montagem, resolver cada `gameSlug` para o `src` real do catálogo quando não houver um `src` explícito no corte, baixar/registrar os extras e conferir todos os in/out. Os nomes `trecho-extra-01/02` ilustram arquivos de situações diferentes; tempos distantes, por si só, não comprovam variedade. Cada bloco de 30s do exemplo tem seis planos de 5s. Trinta segundos não é uma regra para a duração de um jogo. O exemplo supõe voz de 77s e pausa adicional de 1s, resultando em timeline de 78s; 47s é somente um limite ilustrativo entre frases.
 
 ### Sequência de trabalho para a próxima IA
 
@@ -560,7 +603,7 @@ Os caminhos de voz, console, música, cartela e efeito acima são ilustrativos e
 3. Extrair console, lista/ordem dos jogos e limites dos blocos nos tempos da voz.
 4. Ler o catálogo existente e reaproveitar gameplays compatíveis.
 5. Buscar/baixar apenas cenas faltantes, além do console, das OSTs e do efeito sonoro de transição.
-6. Rever os cortes completos, marcar pausas entre jogos e escrever o manifesto em segundos, com os deslocamentos acumulados.
+6. Selecionar partes diferentes de cada jogo em cortes próximos de 5s, rever os intervalos completos, marcar pausas entre jogos e escrever o manifesto em segundos, com os deslocamentos acumulados.
 7. Preparar lower thirds, cartelas com o nome do próximo jogo e, se necessário, segmentos de voz/cortes/mixes com FFmpeg.
 8. Adaptar o importador Lua/API para criar uma timeline dedicada e posicionar os assets.
 9. Preservar o projeto aberto do usuário: salvar e criar um projeto separado quando ele já contiver trabalho.
@@ -588,6 +631,8 @@ Para considerar a montagem fiel ao pedido, todos estes pontos precisam estar ate
 - A primeira imagem da intro é um vídeo do console correto.
 - A montagem seguinte antecipa jogos presentes no vídeo, com 2–4s por gameplay.
 - A fala sobre um jogo é acompanhada por material desse jogo/versão.
+- Cada bloco usa uma seleção de partes diferentes do mesmo jogo, em cortes de aproximadamente 5s, com ajuste final para a duração real da fala.
+- O bloco não é preenchido só com pedaços consecutivos da mesma situação nem com repetição de uma sequência; quando falta variedade, há material adicional selecionado.
 - O nome do lower third corresponde à gameplay e está legível.
 - A duração de cada bloco acompanha o áudio real e as pausas inseridas; não existem gaps involuntários de imagem ou voz.
 - Entre os blocos de jogos há mini pausa com cartela do próximo jogo e efeito sonoro; voz, OST e gameplay ficam sem som nesse intervalo.
@@ -612,7 +657,7 @@ Copiar o texto abaixo e preencher título e arquivo de áudio. Se a IA estiver f
 >
 > Edite e entregue o vídeo completo com base neste título, no áudio enviado e no guia. Clone ou baixe https://github.com/joaogks/Listadejogos e trabalhe na pasta do repositório. Leia `TUTORIAL-PARA-IA.md`, `GUIA-PARA-IAS.md`, `README.md` e os dois scripts em `scripts/`. Reconstrua `catalog/gameplays.json` localmente quando necessário. Transcreva o áudio com timestamps e extraia o console, os jogos, sua ordem e os limites de cada bloco. Use a voz original integral, sem reescrever a narração, gerar outra voz ou mudar sua velocidade. Não exija roteiro escrito, lista de jogos ou timecodes do usuário: derive esses elementos da fala.
 >
-> Comece a imagem com um vídeo do console abordado; em seguida, mostre gameplays de jogos conhecidos presentes no episódio, com 2–4 segundos por trecho. Faça essa intro caber na introdução da voz; se o áudio começar direto no primeiro jogo, coloque uma abertura visual curta antes dele e registre o deslocamento. No corpo, mostre gameplay do jogo atual na narração, coloque um lower third com seu nome e use música do próprio jogo em volume reduzido. Mantenha a voz clara e separe OST, áudio da gameplay e narração.
+> Comece a imagem com um vídeo do console abordado; em seguida, mostre gameplays de jogos conhecidos presentes no episódio, com 2–4 segundos por trecho. Faça essa intro caber na introdução da voz; se o áudio começar direto no primeiro jogo, coloque uma abertura visual curta antes dele e registre o deslocamento. No corpo, use uma seleção de partes diferentes do jogo atual, em cortes de cerca de 5 segundos, coloque um lower third com seu nome e use música do próprio jogo em volume reduzido. Busque momentos em fases, cenários, ações ou personagens distintos, conforme o gênero e a fala; não apenas divida a mesma situação contínua em pedaços. Mantenha voz e OST contínuas entre os cortes do mesmo jogo, preserve a voz clara e separe OST, áudio da gameplay e narração.
 >
 > Entre os blocos de um jogo e outro, corte a voz somente no limite entre frases, encerre música/áudio da gameplay e faça uma mini pausa de cerca de 1s com uma cartela mostrando o nome do próximo jogo. Toque um efeito sonoro curto nessa entrada; durante a cartela, só ele fica audível. Depois retome a narração original junto da gameplay, lower third e OST do próximo jogo. Aproveite silêncios existentes quando suficientes e amplie-os quando necessário, sem apagar palavras nem acelerar a voz. Registre as divisões de áudio e recalcule todos os tempos posteriores pelo acréscimo acumulado.
 >

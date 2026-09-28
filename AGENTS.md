@@ -11,7 +11,8 @@ O usuário enviará somente o título do vídeo e o áudio final da narração. 
 ## Regras do vídeo
 
 - Intro: primeiro uma filmagem do console; depois gameplays de jogos reconhecíveis presentes na lista, com 2–4 segundos por trecho.
-- Corpo: gameplay do jogo atual na narração, lower third com o nome correto e trilha sonora dos próprios jogos em volume reduzido.
+- Corpo: seleção de partes diferentes do jogo atual em cortes de aproximadamente 5s, com lower third e trilha do próprio jogo em volume reduzido. Varie fases, cenários, combates, personagens ou ações conforme a fala; não apenas fragmente uma situação contínua.
+- Dentro do mesmo jogo, mantenha voz/OST contínuas nos cortes de 5s. A pausa, a cartela e o efeito de mudança de jogo acontecem entre blocos, não em cada corte. Ajuste os últimos planos à duração real da voz.
 - Entre blocos de jogos: interrompa voz, OST e áudio da gameplay, mostre uma cartela com o nome do próximo jogo durante uma mini pausa e toque um efeito sonoro curto. Depois retome voz/gameplay/lower third/OST. Default: 1s de pausa, aproveitando silêncio existente quando suficiente.
 - Divida a voz apenas entre frases, preservando palavras e velocidade. Registre segmentos e tempo adicional das pausas no manifesto e recalcule os tempos posteriores; não basta um deslocamento global.
 - OST, áudio da gameplay e narração são elementos diferentes. O MP4 baixado não contém necessariamente uma OST isolada.
@@ -27,6 +28,7 @@ O usuário enviará somente o título do vídeo e o áudio final da narração. 
 - Adicionar um jogo à busca exige atualizar `games.json` e `$titlePatterns` no script.
 - Os tempos da fonte no YouTube, do clipe local e da timeline são distintos. Não trate `durationInFrames30fps` como frames nativos de todas as mídias.
 - A marcação `visuallyReviewed` atual se refere a três imagens por clipe, não à revisão integral dos cortes.
+- A biblioteca inicial tem um intervalo principal por jogo. Se faltar variedade, baixe intervalos adicionais e registre os arquivos/fontes no manifesto. O catálogo atual usa o último status por slug; ele não enumera automaticamente todos os extras. Cada corte pode usar `src` explícito na montagem futura.
 
 ## Montagem
 

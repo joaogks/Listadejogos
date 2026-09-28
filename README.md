@@ -27,6 +27,8 @@ Para continuar este projeto com outra IA, leia [GUIA-PARA-IAS.md](GUIA-PARA-IAS.
 
 Fluxo de entrada: o usuário fornece **o título e o áudio final**. A IA transcreve a narração, identifica console/jogos e seus tempos, seleciona/baixa as mídias e monta o vídeo. Há um prompt pronto para copiar no final do guia.
 
+**Seleção de gameplay no corpo:** para cada jogo, mostrar partes diferentes em cortes de aproximadamente **5 segundos**, alternando fases, cenários, combates, personagens ou ações conforme a fala. A voz e a OST seguem contínuas nesses cortes. A intro mantém trechos de **2–4 segundos**. Se o intervalo inicial de dois minutos não oferecer variedade, buscar/baixar outros momentos do jogo e registrar os arquivos extras no manifesto.
+
 **Transições entre jogos:** ao terminar um bloco, interromper voz, música e áudio da gameplay. Mostrar uma cartela com o nome do próximo jogo numa mini pausa, acompanhada por um efeito sonoro curto, e depois retomar a narração e a gameplay. Padrão sugerido: 1s de pausa; aproveitar silêncios existentes ou ampliá-los sem cortar palavras. O plano de edição deve registrar os segmentos da voz e recalcular os tempos seguintes.
 
 Busca videos publicos no YouTube, escolhe candidatos pelo nome do jogo e por palavras como PS1, PSX, longplay e no commentary, e baixa trechos com yt-dlp + FFmpeg. Os arquivos mantem o audio da gameplay e a proporcao da fonte. Nao sao trilhas isoladas: o audio pode incluir musica, efeitos e falas do jogo.
@@ -76,6 +78,6 @@ Os horarios iniciais sao pontos de partida para curadoria. As folhas de contato 
 
 ## Uso na edicao
 
-O gerador da timeline pode ler `catalog/gameplays.json`, relacionar `slug` ao bloco da narracao e recortar o arquivo `src`. Para a intro, escolher trechos de 2-4 segundos; para o corpo, escolher as cenas adequadas a cada fala. O lower third e a faixa de narracao entram acima da gameplay. O audio da fonte fica separado para ajustar volume e fades no Resolve.
+O gerador da timeline pode ler `catalog/gameplays.json` e relacionar `slug` ao bloco da narracao. Para a intro, escolher trechos de 2-4 segundos; para o corpo, selecionar partes diferentes do jogo em cortes de cerca de 5 segundos, usando o `src` principal ou arquivos extras indicados por corte no manifesto. O catalogo atual guarda o ultimo status por jogo, nao uma lista automatica de todos os intervalos extras. O lower third e a faixa de narracao entram acima da gameplay. O audio da fonte fica separado para ajustar volume e fades no Resolve.
 
 Documentacao do downloader: https://github.com/yt-dlp/yt-dlp

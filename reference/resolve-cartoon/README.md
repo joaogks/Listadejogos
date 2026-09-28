@@ -32,6 +32,7 @@ Na instalação original, o FCPXML era intermediário de preparação, não o ca
 - Trocar raiz fixa, nome de projeto, slugs e planos de cartoons por uma raiz configurável e manifesto derivado do título/áudio.
 - Remover requisitos específicos como dez vídeos, quantidade mínima de linhas do plano, cartões de episódios e jazz.
 - Usar filmagem do console e montagem de gameplay na intro.
+- No corpo de cada jogo, posicionar uma seleção de partes diferentes em cortes de aproximadamente 5s, com voz/OST contínuas. Suportar arquivos extras por corte e ajustar o fim à duração real do bloco.
 - Criar lower thirds do jogo correto em uma pista superior.
 - Separar narração, OST e áudio da gameplay, com tempos/ganhos/fades adequados.
 - Adicionar cartelas do próximo jogo e efeito sonoro entre os blocos, com mini pausa de voz/OST/gameplay. Dividir a voz entre frases e recalcular os tempos posteriores pelo acréscimo acumulado, preservando as palavras.
